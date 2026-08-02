@@ -67,6 +67,7 @@ int main(){
     cout<<endl;
     cout<<"Method 1 (Using insertion sort): ";
     insertion_sort(arr, n);
+    cout<<endl;
 
     return 0;
 }
