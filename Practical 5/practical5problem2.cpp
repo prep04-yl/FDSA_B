@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-// ---------- SINGLY CIRCULAR LINKED LIST ----------
+// singly circular linked list
 
 struct SNode {
     int data;
@@ -24,14 +24,12 @@ public:
     void insert(int value, int position) {
         SNode* newNode = new SNode(value);
 
-        // Empty list
         if (head == nullptr) {
             head = newNode;
             head->next = head;
             return;
         }
 
-        // Insert at beginning
         if (position == 1) {
             SNode* temp = head;
 
@@ -57,14 +55,12 @@ public:
         if (head == nullptr)
             return;
 
-        // Only one node
         if (head->data == value && head->next == head) {
             delete head;
             head = nullptr;
             return;
         }
 
-        // Remove head
         if (head->data == value) {
             SNode* last = head;
 
@@ -111,7 +107,7 @@ public:
 };
 
 
-// ---------- DOUBLY CIRCULAR LINKED LIST ----------
+//doubly circular linked list
 
 struct DNode {
     int data;
@@ -135,7 +131,6 @@ public:
     void insert(int value, int position) {
         DNode* newNode = new DNode(value);
 
-        // Empty list
         if (head == nullptr) {
             head = newNode;
             head->next = head;
@@ -143,7 +138,6 @@ public:
             return;
         }
 
-        // Insert at beginning
         if (position == 1) {
             DNode* last = head->prev;
 
@@ -178,7 +172,6 @@ public:
         do {
             if (temp->data == value) {
 
-                // Only node
                 if (temp->next == temp) {
                     delete temp;
                     head = nullptr;
@@ -216,9 +209,6 @@ public:
         cout << endl;
     }
 };
-
-
-// ---------- MAIN ----------
 
 int main() {
 
