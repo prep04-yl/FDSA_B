@@ -1,48 +1,62 @@
 #include <iostream>
+#include <stack>
+#include <cctype>
+using namespace std;
 
-int prec(char c) {
-    return (c == '+' || c == '-') ? 1 : (c == '*' || c == '/') ? 2 : (c == '^') ? 3 : 0;
+int priority(char op) {
+    if (op == '^')
+        return 3;
+    if (op == '*' || op == '/')
+        return 2;
+    if (op == '+' || op == '-')
+        return 1;
+    return 0;
 }
 
-void infixToPostfix(const char* s) {
-    char stack[100];
-    int top = -1, needSpace = 0;
+string infixToPostfix(string exp) {
+    stack<char> s;
+    string postfix = "";
 
-    for (int i = 0; s[i] != '\0'; ++i) {
-        if (s[i] == ' ' || s[i] == '\t') continue;
-
-        if (s[i] >= '0' && s[i] <= '9') {
-            if (needSpace) std::cout << " ";
-            while (s[i] >= '0' && s[i] <= '9') std::cout << s[i++];
-            needSpace = 1; i--;
+    for (char ch : exp) {
+        if (isalnum(ch)) {
+            postfix += ch;
         }
-        else if (s[i] == '(') {
-            stack[++top] = s[i];
+        else if (ch == '(') {
+            s.push(ch);
         }
-        else if (s[i] == ')') {
-            while (top >= 0 && stack[top] != '(') {
-                if (needSpace) std::cout << " ";
-                std::cout << stack[top--];
-                needSpace = 1;
+        else if (ch == ')') {
+            while (!s.empty() && s.top() != '(') {
+                postfix += s.top();
+                s.pop();
             }
-            if (top >= 0 && stack[top] == '(') top--;
+            s.pop();
         }
-        else { // Operators
-            while (top >= 0 && stack[top] != '(' && (prec(stack[top]) > prec(s[i]) ||
-                  (prec(stack[top]) == prec(s[i]) && s[i] != '^'))) {
-                if (needSpace) std::cout << " ";
-                std::cout << stack[top--];
-                needSpace = 1;
+        else {
+            while (!s.empty() && priority(s.top()) >= priority(ch)) {
+                postfix += s.top();
+                s.pop();
             }
-            stack[++top] = s[i];
+            s.push(ch);
         }
     }
-    while (top >= 0) {
-        if (needSpace) std::cout << " ";
-        std::cout << stack[top--];
+
+    while (!s.empty()) {
+        postfix += s.top();
+        s.pop();
     }
-    std::cout << "\n";
+
+    return postfix;
 }
+
+int main() {
+    string expression;
+    cin >> expression;
+
+    cout << infixToPostfix(expression);
+
+    return 0;
+}
+
 
 int main() {
     infixToPostfix("3 + 4 * 2");
