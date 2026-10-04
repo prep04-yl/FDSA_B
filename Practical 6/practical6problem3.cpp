@@ -50,6 +50,7 @@ string infixToPostfix(string exp) {
 
 int main() {
     string expression;
+    cout<<"Enter the expression: ";
     cin >> expression;
 
     cout << infixToPostfix(expression);
