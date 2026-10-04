@@ -1,6 +1,6 @@
 #include<iostream>
 using namespace std;
-#define n 10
+#define n 5
 
 
 void place(int* stack, int &top)
@@ -31,15 +31,7 @@ int main()
     int stack[n];
     place(stack,top);
     place(stack,top);
-    place(stack,top);
-    place(stack,top);
     take(stack,top);
-    place(stack,top);
-    place(stack,top);
-    place(stack,top);
-    take(stack,top);
-    place(stack,top);
-    place(stack,top);
     place(stack,top);
     place(stack,top);
     place(stack,top);
